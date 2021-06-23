@@ -1,5 +1,4 @@
 package com.dlightsaber.member.model;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -8,7 +7,6 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "registerdata")
@@ -41,20 +39,16 @@ public class Register {
 
 	@NotBlank
 	@Email(message = "Please enter a valid e-mail address")
-	@Indexed(unique = true)
 	private String email;
 
 	@Size(min = 10, max = 10)
+	@NotBlank
 	@Pattern(regexp = "(^$|[0-9]{10})", message = "only digits are allowed")
 	private String phoneNumber;
 
-	@NotNull(message = "Address should not be null")
-	@NotEmpty(message = "It should not be empty")
 	@Size(max = 60, message = "Address should not exceed 60 characters")
 	private String address;
 
-	@NotNull(message = "city should not be null")
-	@NotEmpty(message = "It should not be empty")
 	@Size(max = 30, message = "City should not exceed 20 characters")
 	@Pattern(regexp = "^[A-Za-z]*$", message = "Only Characters are allowed")
 	private String city;
@@ -86,6 +80,14 @@ public class Register {
 		this.lastName = lastName;
 	}
 
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
 	public String getPassword() {
 		return password;
 	}
@@ -110,14 +112,6 @@ public class Register {
 		this.email = email;
 	}
 
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
 	public String getAddress() {
 		return address;
 	}
@@ -140,13 +134,6 @@ public class Register {
 
 	public void setZip(String zip) {
 		this.zip = zip;
-	}
-
-	@Override
-	public String toString() {
-		return String.format(
-				"Register [_id=%s, firstName=%s, lastName=%s, password=%s, confirmPassword=%s, email=%s, phoneNumber=%s, address=%s, city=%s, zip=%s]",
-				_id, firstName, lastName, password, confirmPassword, email, phoneNumber, address, city, zip);
 	}
 
 }

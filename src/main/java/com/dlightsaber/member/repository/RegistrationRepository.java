@@ -9,8 +9,5 @@ import com.dlightsaber.member.model.Register;
 
 @Repository
 public interface RegistrationRepository extends MongoRepository<Register, String> {
-	List<Register> findByfirstName(String firstName);
-
-	List<Register> findBylastName(String lastName);
-
+	List<Register> findAllByemail(String email);
 }
